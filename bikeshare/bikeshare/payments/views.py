@@ -4,6 +4,7 @@ import json
 from django.http import HttpResponse
 import braintree
 from bikeshare.payments.models import Transaction
+from django.views.decorators.csrf import csrf_exempt
 
 def test(request):
     return render(request, 'index.html', locals())
@@ -19,7 +20,7 @@ def get_token(request):
     response["client_token"] = client_token
     return HttpResponse(json.dumps(response), content_type="application/json")
 
-
+@csrf_exempt
 def new_bike(request):
     nonce = request.POST.get('payment_method_nonce')
     result = braintree.Transaction.sale({
@@ -27,7 +28,6 @@ def new_bike(request):
         "payment_method_nonce": nonce
     })
     response = {}
-    import pdb; pdb.set_trace()
     response["success"] = result.is_success
     if not result.is_success:
         response["message"] = result.message
