@@ -3,6 +3,10 @@ import json
 
 from django.http import HttpResponse
 import braintree
+from bikeshare.payments.models import Transaction
+
+def test(request):
+    return render(request, 'index.html', locals())
 
 # Create your views here.
 
@@ -23,6 +27,15 @@ def new_bike(request):
         "payment_method_nonce": nonce
     })
     response = {}
+    import pdb; pdb.set_trace()
     response["success"] = result.is_success
-    response["message"] = result.message
+    if not result.is_success:
+        response["message"] = result.message
+    else:
+        result2 = braintree.Transaction.submit_for_settlement(result.transaction.id)
+        Transaction.objects.create(braintree_id=str(result.transaction.id), nonce=nonce, amount=result.transaction.amount)
+        response["success"] = result2.is_success
+        if not result2.is_success:
+            response["message"] = result2.message
+
     return HttpResponse(json.dumps(response), content_type="application/json")
