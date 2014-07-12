@@ -17,7 +17,7 @@ def get_token(request):
 
 
 def new_bike(request):
-    nonce = request.GET.get('payment_method_nonce')
+    nonce = request.POST.get('payment_method_nonce')
     result = braintree.Transaction.sale({
         "amount": "10.00",
         "payment_method_nonce": nonce
