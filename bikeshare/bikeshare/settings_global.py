@@ -82,3 +82,13 @@ braintree.Configuration.configure(braintree.Environment.Sandbox,
                                   public_key="45227tmp8657rkhb",
                                   private_key="cda7a19f6a7bf3a4427fd02bf04359a6")
 
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'matkk11'
+EMAIL_HOST_PASSWORD = 'rfhy45db'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_BACKEND = "sgbackend.SendGridBackend"
+SENDGRID_USER = "matkk11"
+SENDGRID_PASSWORD = "rfhy45db"
+

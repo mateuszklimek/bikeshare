@@ -6,6 +6,9 @@ import braintree
 from bikeshare.payments.models import Transaction
 from django.views.decorators.csrf import csrf_exempt
 
+from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
+
 def test(request):
     return render(request, 'index.html', locals())
 
@@ -37,5 +40,9 @@ def new_bike(request):
         response["success"] = result2.is_success
         if not result2.is_success:
             response["message"] = result2.message
+        else:
+            send_mail("Bike rented", "Your bike has been rented",
+                "Mateusz Klimek <matkk11gmail.com>", ["milon@o2.pl"])
+
 
     return HttpResponse(json.dumps(response), content_type="application/json")

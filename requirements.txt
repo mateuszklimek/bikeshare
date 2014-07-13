@@ -2,3 +2,6 @@ Django==1.6.2
 django-json-field==0.5.5
 psycopg2==2.5.3
 braintree
+django-celery
+paypalrestsdk
+sendgrid-django
