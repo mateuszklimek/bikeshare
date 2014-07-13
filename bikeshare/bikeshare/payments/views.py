@@ -42,7 +42,7 @@ def new_bike(request):
             response["message"] = result2.message
         else:
             send_mail("Bike rented", "Your bike has been rented",
-                "Mateusz Klimek <matkk11gmail.com>", ["milon@o2.pl"])
+                "Mateusz Klimek <matkk11gmail.com>", ["k.sawicka.k@gmail.com"])
 
 
     return HttpResponse(json.dumps(response), content_type="application/json")
